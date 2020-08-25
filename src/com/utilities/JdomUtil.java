@@ -1,0 +1,146 @@
+package com.utilities;
+
+import org.apache.commons.collections4.IteratorUtils;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.filter.ElementFilter;
+import org.jdom2.input.SAXBuilder;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.*;
+import java.util.Iterator;
+import java.util.List;
+
+public class JdomUtil {
+
+    public JdomUtil()
+    {
+    }
+
+    //Converte un Document JDOM in string
+    public static String ConvertJDOM(Document doc)
+    {
+        Format format = Format.getPrettyFormat();
+        //Format format = Format.getCompactFormat();
+        // Creamos el serializador con el formato deseado
+        XMLOutputter xmloutputter = new XMLOutputter(format);
+        // Serializamos el document parseado
+        String docStr = xmloutputter.outputString(doc);
+        return docStr;
+    }
+
+    public static String ConvertJDOM(Document doc, String sEncoding)
+    {
+        Format format = Format.getCompactFormat();
+        format.setEncoding(sEncoding);
+        format.setTextMode(Format.TextMode.PRESERVE);
+        //Format format = Format.getCompactFormat();
+        // Creamos el serializador con el formato deseado
+        XMLOutputter xmloutputter = new XMLOutputter(format);
+        // Serializamos el document parseado
+        String docStr = xmloutputter.outputString(doc);
+        return docStr;
+    }
+
+    public static String ConvertJDOM(Element element)
+    {
+        //Format format = Format.getPrettyFormat();
+        Format format = Format.getCompactFormat();
+        // Creamos el serializador con el formato deseado
+        XMLOutputter xmloutputter = new XMLOutputter(format);
+        // Serializamos el document parseado
+        String docStr = xmloutputter.outputString(element);
+        return docStr;
+    }
+
+    //Metodo che restituisce il nome del nodo radice
+    public static String RecongnizePattern(Document xml)
+    {
+        String sPAttern = null;
+        Element eRoot = xml.getRootElement();
+        sPAttern = eRoot.getName();
+        return sPAttern;
+    }
+
+    // Metodo per la creazione di un document a partire da un InputStream
+    public static Document createJDOM(InputStream input) throws JDOMException, IOException
+    {
+        //creating JDOM SAX parser
+        SAXBuilder builder = new SAXBuilder();
+        //reading XML document
+        Document xml = null;
+        xml = builder.build(input);
+        return xml;
+    }
+
+    // Scrive il DocOutput in un OutputStream
+    public static void createDocOutputStream(Document docOut, OutputStream outputStream) throws IOException
+    {
+        Format format = Format.getPrettyFormat();
+        // Creamos el serializador con el formato deseado
+        XMLOutputter xmloutputter = new XMLOutputter(format);
+        // Serializamos el document parseado
+        xmloutputter.output(docOut, outputStream);
+    }
+
+    // Metodo analogo al getDocumentElementByTagName nella DOM: restituiste un Array di Element
+    public static Object[] getDocumentElementByTagName(Document doc, String sPattern)
+    {
+        ElementFilter fFilter = new ElementFilter(sPattern);
+        Iterator<Element> iIter = doc.getDescendants(fFilter);
+        return IteratorUtils.toArray(iIter, Element.class); // Restituisce un Element[]
+    }
+    public static Object[] getDocumentElementByTagName(Element ele, String sPattern)
+    {
+        ElementFilter fFilter = new ElementFilter(sPattern);
+        Iterator<Element> iIter = ele.getDescendants(fFilter);
+        return IteratorUtils.toArray(iIter, Element.class); // Restituisce un Element[]
+    }
+    public static Document StringToDocument(String sIn) throws JDOMException, IOException
+    {
+        SAXBuilder builder = new SAXBuilder();
+        InputStream stream = new ByteArrayInputStream(sIn.getBytes("UTF-8"));
+        return builder.build(stream);
+    }
+    public static Element StringToElement(String xmlstr) throws JDOMException, IOException, ParserConfigurationException, SAXException
+    {
+        StringReader stringReader = new StringReader(xmlstr);
+        SAXBuilder builder = new SAXBuilder();
+        Document doc = builder.build(stringReader);
+        Element elem = doc.getRootElement();
+        return elem.detach();
+    }
+    public static String lookUp(List<Element> elem, String qualfkey, String qualfvalue,
+                         String field) {
+        String sResult = null;
+
+        for (Element item : elem) {
+            if (item.getChildTextTrim(qualfkey).equals(qualfvalue.trim()))
+            {
+                sResult = item.getChildTextTrim(field);
+                break;
+            }
+        }
+
+        return (sResult);
+    }
+    public static String lookUp(List<Element> elem, String qualfkey1, String qualfvalue1, String qualfkey2, String qualfvalue2,String field) {
+        String sResult = null;
+
+        for (Element item : elem) {
+            if (item.getChildTextTrim(qualfkey1).equals(qualfvalue1.trim()) && item.getChildTextTrim(qualfkey2).equals(qualfvalue2.trim()) )
+            {
+                sResult = item.getChildTextTrim(field);
+                break;
+            }
+        }
+
+        return (sResult);
+    }
+}
+
+
