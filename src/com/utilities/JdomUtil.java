@@ -174,6 +174,34 @@ public class JdomUtil {
 
     }
 
+    public static Element removeSoapEnvelope(String response, String sNodeName)
+    {
+        return removeSoapEnvelope(response, sNodeName, null, null);
+    }
+
+    public static Element removeSoapEnvelope(String response, String sNodeName, String sPrefix, String sNamespace)
+    {
+        Namespace ns = Namespace.getNamespace(sPrefix, sNamespace);
+        Document docInput = null;
+        Element eResponse = null;
+        try {
+            docInput = StringToDocument(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Element eRoot = docInput.detachRootElement();
+
+        eResponse = ((Element) getDocumentElementByTagName(eRoot, sNodeName)[0]).detach();
+
+        if(sNamespace != null)
+        {
+            eResponse.setNamespace(ns);
+        }
+
+        return eResponse;
+    }
+
 }
 
 
