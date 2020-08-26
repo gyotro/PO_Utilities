@@ -290,59 +290,59 @@ public class MapsUtilities implements DinamicConfKeys2 {
 
     public String getDynamicConf(String sKey) {
         DynamicConfiguration dconf = inputTr.getDynamicConfiguration();
-        if (sKey.equalsIgnoreCase("FileName") == true)
+        if (sKey.equalsIgnoreCase("FileName"))
             return dconf.get(KEY_FILENAME);
-        else if (sKey.equalsIgnoreCase("ConversationId") == true)
+        else if (sKey.equalsIgnoreCase("ConversationId"))
             return dconf.get(KEY_CONVERSATION_ID);
-        else if (sKey.equalsIgnoreCase("Interface") == true)
+        else if (sKey.equalsIgnoreCase("Interface"))
             return dconf.get(KEY_INTERFACE);
-        else if (sKey.equalsIgnoreCase("InterfaceNamespace") == true)
+        else if (sKey.equalsIgnoreCase("InterfaceNamespace"))
             return dconf.get(KEY_INTERFACE_NAMESPACE);
-        else if (sKey.equalsIgnoreCase("MessageId") == true)
+        else if (sKey.equalsIgnoreCase("MessageId"))
             return dconf.get(KEY_MESSAGE_ID);
-        else if (sKey.equalsIgnoreCase("ProcessingMode") == true)
+        else if (sKey.equalsIgnoreCase("ProcessingMode"))
             return dconf.get(KEY_PROCESSING_MODE);
-        else if (sKey.equalsIgnoreCase("QualityOfService") == true)
+        else if (sKey.equalsIgnoreCase("QualityOfService"))
             return dconf.get(KEY_QUALITY_OF_SERVICE);
-        else if (sKey.equalsIgnoreCase("QueueId") == true)
+        else if (sKey.equalsIgnoreCase("QueueId"))
             return dconf.get(KEY_QUEUE_ID);
         else if (sKey.equalsIgnoreCase("ReceiverService"))
             return dconf.get(KEY_RECEIVER_SERVICE);
-        else if (sKey.equalsIgnoreCase("RefToMessageId") == true)
+        else if (sKey.equalsIgnoreCase("RefToMessageId"))
             return dconf.get(KEY_REF_TO_MESSAGE_ID);
-        else if (sKey.equalsIgnoreCase("SenderService") == true)
+        else if (sKey.equalsIgnoreCase("SenderService"))
             return dconf.get(KEY_SENDER_SERVICE);
         else if (sKey.equalsIgnoreCase("TimeSent"))
             return dconf.get(KEY_TIME_SENT);
         else if (sKey.equalsIgnoreCase("Directory"))
             return dconf.get(KEY_DIRECTORY);
-        else if (sKey.equalsIgnoreCase("FileEncoding") == true)
+        else if (sKey.equalsIgnoreCase("FileEncoding"))
             return dconf.get(KEY_FILE_ENCODING);
         else if (sKey.equalsIgnoreCase("FileType"))
             return dconf.get(KEY_FILE_TYPE);
-        else if (sKey.equalsIgnoreCase("SourceFileSize") == true)
+        else if (sKey.equalsIgnoreCase("SourceFileSize"))
             return dconf.get(KEY_FILE_SIZE);
-        else if (sKey.equalsIgnoreCase("SourceFTPHost") == true)
+        else if (sKey.equalsIgnoreCase("SourceFTPHost"))
             return dconf.get(KEY_FTP_HOST);
-        else if (sKey.equalsIgnoreCase("SourceFileTimestamp") == true)
+        else if (sKey.equalsIgnoreCase("SourceFileTimestamp"))
             return dconf.get(KEY_SOURCE_FILE_TIME_STAMP);
-        else if (sKey.equalsIgnoreCase("HTTPDest") == true)
+        else if (sKey.equalsIgnoreCase("HTTPDest"))
             return dconf.get(KEY_HTTP_DEST);
-        else if (sKey.equalsIgnoreCase("TargetURL") == true)
+        else if (sKey.equalsIgnoreCase("TargetURL"))
             return dconf.get(KEY_TARGET_URL_HTTP);
-        else if (sKey.equalsIgnoreCase("SHeaderCC") == true)
+        else if (sKey.equalsIgnoreCase("SHeaderCC"))
             return dconf.get(KEY_S_HEADER_CC);
-        else if (sKey.equalsIgnoreCase("SHeaderFROM") == true)
+        else if (sKey.equalsIgnoreCase("SHeaderFROM"))
             return dconf.get(KEY_S_HEADER_FROM);
-        else if (sKey.equalsIgnoreCase("SHeaderSUBJECT") == true)
+        else if (sKey.equalsIgnoreCase("SHeaderSUBJECT"))
             return dconf.get(KEY_S_HEADER_SUBJECT);
-        else if (sKey.equalsIgnoreCase("RfcDestination") == true)
+        else if (sKey.equalsIgnoreCase("RfcDestination"))
             return dconf.get(KEY_RFC_DESTINATION);
-        else if (sKey.equalsIgnoreCase("SRemoteHost") == true)
+        else if (sKey.equalsIgnoreCase("SRemoteHost"))
             return dconf.get(KEY_REMOTE_HOST);
-        else if (sKey.equalsIgnoreCase("SRemoteUser") == true)
+        else if (sKey.equalsIgnoreCase("SRemoteUser"))
             return dconf.get(KEY_REMOTE_USER);
-        else if (sKey.equalsIgnoreCase("TAuthKey") == true)
+        else if (sKey.equalsIgnoreCase("TAuthKey"))
             return dconf.get(KEY_AUTH_KEY);
         else
             return "not found";
@@ -440,9 +440,9 @@ public class MapsUtilities implements DinamicConfKeys2 {
             Collection<String> idCollection = inputAttachments
                     .getAllContentIds(true);
             Object[] arrayObj = idCollection.toArray();
-            for (int i = 0; i < arrayObj.length; i++) {
+            for (Object o : arrayObj) {
                 vAttachVect.addElement(inputAttachments.getAttachment(
-                        (String) arrayObj[i]).getContent());
+                        (String) o).getContent());
             }
         }
         return vAttachVect;
@@ -470,9 +470,9 @@ public class MapsUtilities implements DinamicConfKeys2 {
             Collection<String> idCollection = inputAttachments
                     .getAllContentIds(true);
             Object[] arrayObj = idCollection.toArray();
-            for (int i = 0; i < arrayObj.length; i++) {
+            for (Object o : arrayObj) {
                 vAttachVect.addElement(inputAttachments.getAttachment(
-                        (String) arrayObj[i]).getBase64EncodedContent());
+                        (String) o).getBase64EncodedContent());
             }
         }
         return vAttachVect;
